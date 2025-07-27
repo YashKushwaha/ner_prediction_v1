@@ -1,0 +1,13 @@
+local_only/
+node_modules/
+mlflow_logs/
+**/.ipynb_checkpoints/**
+**/mlruns/**
+**/.terraform/**
+**/*.terrafrom.lock.hcl/**
+**/lib/**
+uploads/
+
+**/__pycache__/**
+**/*.pyc/**
+
