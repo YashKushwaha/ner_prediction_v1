@@ -1,10 +1,5 @@
 import os
-import huggingface_hub as hf
 from datasets import Dataset, DatasetDict
-
-
-
-import os
 from pathlib import Path
 import pandas as pd
 import chardet
@@ -42,8 +37,7 @@ print("Train size:", len(final_ds["train"]))
 print("Validation size:", len(final_ds["validation"]))
 print("Test size:", len(final_ds["test"]))
 
-hf_token = os.environ['HUGGINGFACE_HUB_TOKEN']
-hf.login(token = hf_token)
 
-username = hf.whoami()['name']
-final_ds.push_to_hub(f"{username}/my-ner-dataset")
+save_location = data_file = os.path.join(PROJECT_ROOT, 'local_only', 'my-ner-dataset-local')
+os.makedirs(save_location, exist_ok=True)
+final_ds.save_to_disk(save_location)

@@ -5,6 +5,7 @@ from transformers import BertTokenizerFast, BertModel
 import os
 from src.functions import tokenize_for_inference, BERT_NER
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
 check_point_save_location = os.path.join(PROJECT_ROOT, 'local_only', 'checkpoints')
 config_file = "model_config.json"
 config_file = os.path.join(check_point_save_location, config_file)

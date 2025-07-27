@@ -1,7 +1,7 @@
 import os
 import json
 
-from datasets import load_dataset
+from datasets import load_from_disk
 
 from transformers import BertTokenizerFast
 import torch
@@ -16,12 +16,11 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 import sys
 
-dataset = load_dataset("yash-iitk/my-ner-dataset", split='train')
+dataset_location = data_file = os.path.join(PROJECT_ROOT, 'local_only', 'my-ner-dataset-local')
+dataset = load_from_disk(dataset_location)
 
-print("Loaded dataset")
-
-train_df = dataset
-
+train_df = dataset['train']
+print('Num records -> ', len(train_df))
 records = []
 for x in train_df:
     record = [(i,j) for i,j in zip(x['tokens'], x['tags'])]
@@ -86,7 +85,7 @@ def train_model(model, num_labels, loader):
         print(f"Epoch {epoch+1} Average Loss: {avg_loss:.4f}")
     return model
 
-OVERWRITE_EXISTING_FILE = True
+OVERWRITE_EXISTING_FILE = False
 
 if not os.path.exists(full_name) or OVERWRITE_EXISTING_FILE:
     print('Model training started')
