@@ -30,52 +30,45 @@ nltk.download('punkt_tab')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_tags(sentence, tokenizer, device='cpu'):
-    words =  word_tokenize(sentence)
-    tokens = tokenize_for_inference(words, tokenizer, 128)
+    if isinstance(sentence, str):
+        words =  word_tokenize(sentence)
+    else:
+        words = sentence
     features = tokenize_for_inference(words, tokenizer, max_len=128)
-    
+    return features
 
-
-
-sentence = '''British prime minister Borris Johnson is visiting Paris in December.'''
-words =  word_tokenize(sentence)
-
+sentence = '''The party is divided over Britain's participation in the Iraq conflict and the continued deployment of 8,500 British troops in that country.'''
 tokenizer = BertTokenizerFast.from_pretrained("bert-base-cased")
+features = get_tags(sentence, tokenizer, device=device)
 
-tokens = tokenize_for_inference(words, tokenizer, 128)
-
-new_words = tokenizer.convert_ids_to_tokens(tokens['input_ids'][0])
-
-print('new_words => ', new_words)
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print('device -> ', device)
-
-features = tokenize_for_inference(words, tokenizer, max_len=128)
-# Move inputs to the model's device
-input_ids = features["input_ids"].to(device)
-attention_mask = features["attention_mask"].to(device)
 model.to(device)
 model.eval()
-with torch.no_grad():
-    outputs = model(input_ids=input_ids, attention_mask=attention_mask)
-    logits = outputs#.logits
-    predictions = torch.argmax(logits, dim=2).squeeze().tolist()
 
-# Map predictions back to words
+def get_ner_predictions(features, model, device='cpu'):
+    input_ids = features["input_ids"].to(device)
+    attention_mask = features["attention_mask"].to(device)
+
+    with torch.no_grad():
+        outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+        logits = outputs#.logits
+        predictions = torch.argmax(logits, dim=2).squeeze().tolist()
+    
+    return predictions
+
+predictions = get_ner_predictions(features, model, device)
+
+    # Map predictions back to words
 word_ids = features["word_ids"]
 
 final_tags = []
 prev_word_idx = None
+words =  word_tokenize(sentence)
 
 for idx, word_idx in enumerate(word_ids):
     if word_idx is None or word_idx == prev_word_idx:
         continue
-    try:
-        print(words[word_idx], '==',predictions[idx])
-    except Exception as e:
-        print(word_idx, idx,' ==> ',e)
     final_tags.append((words[word_idx], id2tag[str(predictions[idx])]))
     prev_word_idx = word_idx
 
-print(final_tags)
+for i in final_tags:
+    print(i)
