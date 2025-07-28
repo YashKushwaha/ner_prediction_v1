@@ -105,10 +105,8 @@ if __name__ == '__main__':
 
     #sentence = """The party is divided over Britain's participation in the Iraq conflict and the continued deployment of 8,500 British troops in that country."""
     sentences = ["""The party is divided over Britain's participation in the Iraq conflict.""",
-                 "Iranian officials visited Tokyo this week"
-                 
+                 "Iranian officials visited Tokyo this week"                 
     ]
-
 
     results = ner_model.batch_predict(sentences)
 
