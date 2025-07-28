@@ -1,9 +1,9 @@
 import os
 from datasets import load_from_disk
 
-def load_dataset(dataset_location):
+def load_dataset(dataset_location, split='train'):
     dataset = load_from_disk(dataset_location)
-    return dataset['train']
+    return dataset[split]
 
 def build_records(train_df):
     records = [[(tok, tag) for tok, tag in zip(x['tokens'], x['tags'])] for x in train_df]

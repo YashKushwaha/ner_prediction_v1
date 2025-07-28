@@ -110,7 +110,7 @@ if __name__ == '__main__':
 
     results = ner_model.batch_predict(sentences)
 
-for sent_result in results:
-    for word, tag in sent_result:
-        print(f"{word}: {tag}")
-    print("-" * 40)
+    for sent_result in results:
+        for word, tag in sent_result:
+            print(f"{word}: {tag}")
+        print("-" * 40)
