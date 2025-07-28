@@ -56,5 +56,6 @@ df_cm['support'] = cm.sum(axis=1)
 # Optional: round for readability
 df_cm = df_cm.round(2)
 
-cm_report_name = os.path.join(DATASET_PATH, "confusion_matrix_normalized.csv")
-df_cm.to_csv(cm_report_name)
+cm_report_name = os.path.join(DATASET_PATH, "confusion_matrix_normalized.xlsx")
+df_cm = df_cm[list(df_cm.index)]
+df_cm.to_excel(cm_report_name)
