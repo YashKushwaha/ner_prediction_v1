@@ -5,6 +5,11 @@ import torch
 
 from torch.utils.data import Dataset
 
+from src.config import MODEL_DIR
+
+import os
+os.environ['TRANSFORMERS_CACHE'] = MODEL_DIR
+
 class NERDataset(Dataset):
     def __init__(self, data, tag2idx, tokenizer, max_len=128):
         self.data = data

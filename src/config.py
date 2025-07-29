@@ -7,6 +7,9 @@ CHECKPOINT_NAME = "classifier_weights.pth"
 CONFIG_FILENAME = "model_config.json"
 MAX_LEN = 128
 BERT_MODEL_NAME = "bert-base-cased"
+
+MODEL_DIR = CHECKPOINT_DIR
+
 EPOCHS = 20
 BATCH_SIZE = 64
 LR = 5e-4

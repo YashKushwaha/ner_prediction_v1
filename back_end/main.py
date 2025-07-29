@@ -2,15 +2,21 @@ import os
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from src.inference_pipeline import NERModel
 
 from back_end.routes import ui_routes, ner_routes
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+from back_end.config_settings import PROJECT_ROOT, STATIC_DIR, IMAGES_DIR
+
+
 CHECKPOINT_DIR = os.path.join(PROJECT_ROOT, "local_only", "checkpoints")
 ner_model = NERModel(checkpoint_dir=CHECKPOINT_DIR)
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+app.mount("/images", StaticFiles(directory=IMAGES_DIR), name="images")
 
 app.include_router(ui_routes.router)
 app.include_router(ner_routes.router)

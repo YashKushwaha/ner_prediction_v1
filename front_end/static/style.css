@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box; /* ensures borders/padding don't add extra size */
+}
+
+html, body {
+  margin: 0;
+  height: 100vh;
+  /*background: linear-gradient(135deg, #f0f4ff 0%, #fafafa 100%);
+  background-attachment: fixed;
+  */
+  background-color: #222222;
+  font-family: sans-serif;
+  font-size: 14 px;
+}
+
+.app{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+
+
+}
+
+.content{
+    display: flex;
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    overflow: auto;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.chat-history{
+    flex: 1;
+    display: flex;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    flex-direction: column;
+    margin-bottom: 5px;
+    background-color: white;
+        border-radius: 10px;
+
+}
+
+.input-area{
+    height: 100px;
+    position: relative;
+
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 5px 10px;    
+    background-color: white;
+}
+
+#user-input-div{
+    height: 100%;
+    overflow: auto;
+}
+
+div[contenteditable]:focus {
+  outline: none;
+
+}
+
+
+:root {
+
+  --black : #222222;
+  --gray1: #272727;
+  --gray400: #333333;
+  --text-color: white;
+
+  --background-color: var(--gray400);
+  --chat-box-bg-color-server:transparent; 
+  --layout-content-color: transparent;  
+  --sidebar-color: var(--black);
+  --user-input-div-color: var(--gray1)
+}
+
+.user-message {
+  max-width: 60%;
+  width: fit-content;
+  padding: 0.5rem;
+  background-color: #e6f4ea;
+  margin-bottom: 0.25rem;
+  margin-left: auto;  /* Align right */
+  border-radius: 1rem;
+  word-wrap: break-word;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.server-message {
+    max-width: 100%;
+    height: fit-content;
+    margin-bottom: 0.25rem;
+    padding: 0.05rem 0.1rem;
+
+    border-radius: 1rem;
+    background-color: var(--chat-box-bg-color-server);
+}
+
+.ner-tag {
+  font-family: sans-serif;
+  font-size: 14 px;
+  display: inline-block;
+  line-height: 1.5;
+}
+
+.ner-tag.O {
+  background: none;
+  color: inherit;
+}
+
+.ner-tag.PER {
+  background-color: #e1f5fe;
+  color: #0277bd;
+}
+
+.ner-tag.ORG {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.ner-tag.LOC {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}

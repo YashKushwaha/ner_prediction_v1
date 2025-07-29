@@ -9,9 +9,15 @@ router = APIRouter()
 async def stream_results(results):
     for sent_result in results:
         for word, tag in sent_result:
-            yield f"{word}: {tag}\n"
+            #yield f"{word}: {tag} <br>"
+            tag = tag.upper()
+            if '-' in tag:
+                prefix, entity = tag.split('-')
+            else:
+                prefix = entity = tag
+            yield f'<span class="ner-tag {entity}" title="{tag}" prefix="{prefix}">{word}</span> '
             await asyncio.sleep(0.1)
-      
+        yield "<br>"
 
 @router.post("/ner_predict")
 async def ner_predict(request: Request, message: str = Form(...), image: UploadFile = File(None)):
