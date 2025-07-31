@@ -117,6 +117,16 @@ Docker is the preferred approach for packaging and deploying the model in produc
 
 2. Model Weights: Large model files (especially full transformer models) should not be baked into the container. Instead, a startup script can be included to download model weights from a remote location (e.g., S3) to the target deployment environment.
 
+**Serving the Model**
+
+There are multiple libraries to serve the trained model -
+
+1. [TorchServe](https://docs.pytorch.org/serve/) - This is designed to be easy and flexible tool for serving PyTorch models in production. However the project is no longer actively maintained.
+
+2. FastAPI + Optimized inference - We can use FastAPI to build the end points. Easy to use. We can do the following to reduce latency at runtime 
+   1. Load model once on startup (avoid reloading on each request)
+   2. Use TorchScript or ONNX: Convert model for faster inference
+
 
 
 ## APPENDIX
