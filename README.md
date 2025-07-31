@@ -35,6 +35,17 @@ The final architecture consisted of BERT model followed by a linear classifier l
 
 Preliminary experiments using BERT revealed signs of overfitting, indicated by an initial decrease in the loss function followed by a subsequent increase. With over 100 million parameters, fine-tuning the entire BERT model was computationally intensive. As a time-efficient approach for the initial draft, all layers of the BERT model were frozen, and only the final linear classification layer was made trainable.
 
+### Experiment Tracking
+
+Although not implemented in as of now. We can use the following tools to track our experiments -
+1. [TensorBoard](https://www.tensorflow.org/tensorboard) 
+   - Helps us monitor training in real time (loss cirves, histograms etc), debug training behavior visually
+   - Developed for TensorFlow but seemlessly works with [PyTorch](https://docs.pytorch.org/docs/stable/tensorboard.html)
+
+2. [MLflow](https://mlflow.org/docs/latest/)
+    - Useful for experiment tracking, param tuning, model versioning, comparisons
+    - Details of PyTorch integration with MLflow can be found [here](https://mlflow.org/docs/latest/ml/deep-learning/pytorch/guide/) 
+  
 ## Data Processing
 
 A csv file containing training data has been provided. There are around 48,000 sentences. Each sentence has already been split into tokens and each row in the dataset represents a token in a sentence along with its POS & NER tag.
@@ -125,7 +136,7 @@ There are multiple libraries to serve the trained model -
 
 2. FastAPI + Optimized inference - We can use FastAPI to build the end points. Easy to use. We can do the following to reduce latency at runtime 
    1. Load model once on startup (avoid reloading on each request)
-   2. Use TorchScript or ONNX: Convert model for faster inference
+   2. Use [TorchScript](https://docs.pytorch.org/docs/stable/jit.html) or [ONNX](https://onnx.ai/): Convert model for faster inference
 
 
 
