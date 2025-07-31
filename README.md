@@ -4,6 +4,10 @@ Objective of this project is to develop a [Named Entity Recognition / NER](https
 
 Named Entity Recognition involves performing multi-class classification at the token level across a sequence, assigning each token a label that indicates whether it belongs to a named entity and, if so, what type.
 
+After developing the model, a simple UI was built to manually interact with the model. Model predictions on a randomly selected sample can be shown in the following demo.
+
+https://github.com/user-attachments/assets/30b570ae-4825-4dbb-bf46-b7a84c98124a
+
 ## Modelling Approaches for NER
 
 **Traditional ML appraoches**
