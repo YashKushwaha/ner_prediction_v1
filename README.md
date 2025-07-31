@@ -142,7 +142,9 @@ There are multiple libraries to serve the trained model -
    1. Load model once on startup (avoid reloading on each request)
    2. Use [TorchScript](https://docs.pytorch.org/docs/stable/jit.html) or [ONNX](https://onnx.ai/): Convert model for faster inference
 
+## Project Structure
 
+<img width="1607" height="465" alt="image" src="https://github.com/user-attachments/assets/60f60248-e182-476d-9f32-805457df2658" />
 
 ## APPENDIX
 
